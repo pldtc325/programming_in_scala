@@ -17,6 +17,7 @@ object ImplicitConversionExample extends App {
       }
     } )
 
+
   /**
     * scala implicit conversion, turn a function:ActionEvent => Unit
     * to ActionListener
@@ -37,6 +38,22 @@ object ImplicitConversionExample extends App {
     (_: ActionEvent) => println("pressed!")
   )
 
+  class A
+  class B
+  implicit def A2B(a:A) = new B()
+  val someB:B = new A() // would have been a type mismatch if there was not A2B
+
+  class C
+  class D
+  implicit def D2C(s:D):C = new C()
+  def passMeC(c:C) = {}
+  passMeC(new D()) // would have been a type mismatch if there was not D2C
+
+  class E {def m() {}}
+  class F
+  implicit  def F2E(f:F) = new E()
+  val f = new F()
+  f.m() // would have been a type mismatch if there was not F2E
 
 }
 
