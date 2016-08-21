@@ -77,6 +77,12 @@ object ImplicitConversionExample extends App {
   }
   println(Arrest(List(1,100,10000000))) // arrest List(10000000)
 
+  def numberIsADetector[T <% Detector[T]](t:T): Boolean = {
+    t.detect(t)
+  }
+  implicit def int2DetectorInt(i:Int) = DetectorInt
+  println(numberIsADetector(100))
+  println(numberIsADetector(10000000))
 
 }
 
